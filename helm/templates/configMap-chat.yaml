@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-chat-config
+data:
+  # Chat Service Configurations
+  SPRING_REDIS_HOST: "{{ .Values.redis.host }}"
+  SPRING_REDIS_PORT: "{{ .Values.redis.service.port }}"
+  SPRING_REDIS_PASSWORD: "{{ .Values.redis.password }}"
+  RAW_TOPIC_MESSAGE: "{{ .Values.redis.topic }}"
+  # You will need to update the endpoints for multi-cloud in task5
+  # You can list multiple endpoints by connecting them with a comma
+  # e.g. 'endpoint1,endpoint2'
+  LIST_OF_PROFILE_ENDPOINTS: "{{ .Values.chat.profileEndpoints }}"
+  # TODO: Specify the values to match the variables that you used
+  #       to install the MySQL service
+  # Note: You need to reference the values from the values.yaml file
+  MYSQL_DB_HOST: "{{ .Values.chat.mysql.host }}"
+  MYSQL_DB_USER: "{{ .Values.chat.mysql.user }}"
+  MYSQL_DB_PASSWORD: "{{ .Values.chat.mysql.password }}"
+  MYSQL_DB_PORT: "{{ .Values.chat.mysql.port }}"

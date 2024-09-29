@@ -1,0 +1,91 @@
+weCloud:
+  imageRegistry:
+    gcp: "wechat-repository"
+
+profile:
+  # TODO: Specify values used in profile service manifests
+  releaseName: "spring-profile"
+  replicaCount: 3
+  repository: "wechat-repository"
+  image: "profile-service"
+  tag: "0.0.4"
+  # TODO: Specify values used in service.yaml
+  service:
+    type: "NodePort"
+    port: 80
+    targetPort: 8080
+  # TODO: Specify values for MySQL environment variables
+  mysql:
+    host: "mysql-profile.default.svc.cluster.local"
+    user: "vismitha"
+    password: "test_user"
+    port: "3306"
+  hpa:
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 50
+    cpuRequest: 200m
+
+
+chat:
+  # TODO: Specify values used in chat service manifests
+  profileEndpoints: "spring-profile-service.default.svc.cluster.local,172.212.41.46" # This value should be used in configMap-chat.yaml
+  releaseName: "spring-chat"
+  replicaCount: 3
+  repository: "wechat-repository"
+  image: "deploy-chat-service"
+  tag: "1.0.0"
+  service:
+    type: "NodePort"
+    port: 80
+    targetPort: 8080
+  # TODO: Specify values for MySQL environment variables
+  mysql:
+    host: "mysql-chat.default.svc.cluster.local"
+    user: "vismitha"
+    password: "test_user"
+    port: "3306"
+  hpa:
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 50
+    cpuRequest: 200m
+
+login:
+  # TODO: Specify values used in login service manifests
+  releaseName: "spring-login"
+  replicaCount: 3
+  repository: "wechat-repository"
+  image: "login-service"
+  tag: "0.0.4"
+  chatEndpoint: "35.237.79.17"
+  service:
+    type: "NodePort"
+    port: 80
+    targetPort: 8080
+  # TODO: Specify values for MySQL environment variables
+  mysql:
+    host: "mysql-login.default.svc.cluster.local"
+    user: "vismitha"
+    password: "test_user"
+    port: "3306"
+  hpa:
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 50
+    cpuRequest: 200m
+
+# Below are the values used in the redis service
+# DO NOT MODIFY
+redis:
+  image: "bitnami/redis:4.0.11-r6"
+  host: "redis-service"
+  password: "SuperSecretRedisPassword"
+  passwordSecret: "redis-secret"
+  passwordKey: "REDIS_PASSWORD"
+  port: "6379"
+  containerPort: 6379
+  topic: "/topic/messages"
+  service:
+    port: 6379
+    targetPort: 6379

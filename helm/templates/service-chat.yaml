@@ -1,0 +1,15 @@
+# TODO: Implement the service configuration for the chat service
+{{- if eq .Values.global.environment "gcp" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.chat.releaseName }}-service
+spec:
+  selector:
+    app: {{ .Values.chat.releaseName }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.chat.service.port }}
+      targetPort: {{ .Values.chat.service.targetPort }}
+  type: {{ .Values.chat.service.type }}
+{{- end }}

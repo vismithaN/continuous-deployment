@@ -1,0 +1,14 @@
+global:
+  environment: azure
+
+login:
+  repository: "wechatacr"
+  image: "azure-login-service"
+  tag: "0.0.5"
+  prefix: "wechatacr.azurecr.io"
+
+profile:
+  repository: "wechatacr"
+  image: "azure-profile-service"
+  tag: "0.0.5"
+  prefix: "wechatacr.azurecr.io"

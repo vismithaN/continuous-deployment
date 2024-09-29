@@ -1,0 +1,13 @@
+# TODO: Implement the service configuration for the login service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.login.releaseName }}-service
+spec:
+  selector:
+    app: {{ .Values.login.releaseName }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.login.service.port }}
+      targetPort: {{ .Values.login.service.targetPort }}
+  type: {{ .Values.login.service.type }}

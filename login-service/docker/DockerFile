@@ -1,0 +1,29 @@
+# Stage 1: Build Stage
+FROM maven:3.8.4-jdk-8-slim AS build
+
+# Set the working directory inside the container
+WORKDIR /login
+
+# Copy the source code into the container
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+
+
+# Build the application and skip tests
+RUN mvn clean package -DskipTests
+
+# Stage 2: Runtime Stage
+FROM openjdk:8-jre-slim
+
+# Set the working directory inside the container
+WORKDIR /login
+
+# Copy the JAR file from the build stage to the runtime stage
+COPY --from=build /login/target/*.jar /login/login-service.jar
+
+# Expose port 8080 for the application
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "/login/login-service.jar"]

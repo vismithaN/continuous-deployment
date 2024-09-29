@@ -1,0 +1,11 @@
+# TODO: Implement config for login service
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-login-config
+data:
+  MYSQL_DB_HOST: '{{ .Values.login.mysql.host }}'
+  MYSQL_DB_USER: '{{ .Values.login.mysql.user }}'
+  MYSQL_DB_PASSWORD: '{{ .Values.login.mysql.password }}'
+  MYSQL_DB_PORT: '{{ .Values.login.mysql.port }}'
+  CHAT_ENDPOINT: '{{ .Values.login.chatEndpoint }}'
