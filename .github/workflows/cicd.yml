@@ -90,7 +90,7 @@ jobs:
       - name: Build docker image profile-service
         if: needs.check-changed-files.outputs.profile-service-java-any-changed == 'true'
         run: |
-          docker build -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/profile-service:${{ env.DOCKER_TAG }} \
+          docker build  -f ./profile-service/docker/DockerFile -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/profile-service:${{ env.DOCKER_TAG }} \
                  -t ${{ env.AZ_CONTAINER_REGISTRY }}/profile-service:${{ env.DOCKER_TAG }} \
                  ./profile-service
           # TODO
@@ -99,18 +99,19 @@ jobs:
       - name: Build docker image login-service
         if: needs.check-changed-files.outputs.login-service-java-any-changed == 'true'
         run: |
-          docker build -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/login-service:${{ env.DOCKER_TAG }} \
+          docker build -f ./login-service/docker/DockerFile -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/login-service:${{ env.DOCKER_TAG }} \
                 -t ${{ env.AZ_CONTAINER_REGISTRY }}/login-service:${{ env.DOCKER_TAG }} \
                 ./login-service
+    
 
       ## chat-service: only deploy to GCP ##
       # TODO: Build docker image with bash script in `run`. You must tag the image with commit SHA
       - name: Build docker image chat-service
         if: needs.check-changed-files.outputs.chat-service-java-any-changed == 'true'
         run: |
-          docker build -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/chat-service:${{ env.DOCKER_TAG }} \
+          docker build -f ./chat-service/docker/DockerFile -t us-east1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/wechat-repository/chat-service:${{ env.DOCKER_TAG }} \
                  ./chat-service
-
+   
 
       ### Push docker images to GAR and ACR ###
       ## GCP setup ##
