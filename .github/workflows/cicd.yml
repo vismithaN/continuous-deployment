@@ -310,7 +310,7 @@ jobs:
       # TODO: Set AKS context so we that can deploy to the azure cluster
       # Document: Azure Kubernetes set context https://github.com/marketplace/actions/azure-kubernetes-set-context
       - name: Set AKS context
-        uses: azure/aks-set-context@v1
+        uses: azure/aks-set-context@v3
         with:
           resource-group: ${{ env.AZ_RESOURCE_GROUP }}
           cluster-name: ${{ env.AZ_CLUSTER_NAME }}
