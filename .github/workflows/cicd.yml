@@ -121,7 +121,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
 
       # TODO: Login into GAR with the service account key
       # Document: Login to Google Artifact Registry https://github.com/docker/login-action?tab=readme-ov-file#google-artifact-registry-gar
@@ -131,7 +131,7 @@ jobs:
         with:
           registry: us-east1-docker.pkg.dev
           username: _json_key
-          password: ${{ secrets.GCP_SA_KEY }}
+          password: ${{ secrets.GKE_SA_KEY }}
 
       # TODO: Setup gcloud CLI
       # Document: set up gcloud CLI https://github.com/marketplace/actions/set-up-gcloud-cloud-sdk-environment
@@ -140,7 +140,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
           export_default_credentials: true
 
       # TODO: Complete the bash script in `run` to configure docker with gcloud CLI for authentication
@@ -243,7 +243,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
 
 
       # TODO: Get the GKE credentials so that we can deploy to the cluster
